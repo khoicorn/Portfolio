@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Mail } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
-import { profile, projects, techCounts } from '@/data'
+import { profile, projects, techCounts, toolkit } from '@/data'
 import { spot } from '@/lib/utils'
 import { GitHubIcon } from '@/components/layout/Icons'
 import { useContact } from '@/components/layout/ContactDialog'
@@ -93,7 +93,7 @@ export function Hero() {
 
       <div className="mt-10 border-y border-line bg-surface/30 py-5 backdrop-blur-sm">
         <p className="container-x label-mono mb-3">Tools I work with</p>
-        <TechMarquee items={techCounts.slice(0, 32).map((t) => t.name)} />
+        <TechMarquee items={toolkit.flatMap((g) => g.items.map((i) => i.label))} />
       </div>
     </section>
   )

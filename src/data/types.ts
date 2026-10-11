@@ -114,9 +114,17 @@ export interface Strength {
   projects: string[]
 }
 
-export interface TechGroupEntry {
-  group: TechGroup
-  items: { name: string; projectSlugs: string[] }[]
+export interface ToolkitItem {
+  /** Shown name, e.g. "Power BI & DAX". */
+  label: string
+  /** Tech names from the projects that this item covers. */
+  tools: string[]
+}
+
+export interface ToolkitGroup {
+  group: string
+  icon: StrengthIcon
+  items: ToolkitItem[]
 }
 
 export interface Job {

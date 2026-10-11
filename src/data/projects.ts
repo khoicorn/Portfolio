@@ -1,4 +1,4 @@
-import type { Category, Project, Strength, TechGroup, TechGroupEntry } from './types'
+import type { Category, Project, Strength, ToolkitGroup } from './types'
 
 export const categories: Category[] = [
   {
@@ -872,32 +872,58 @@ export const projects: Project[] = [
   },
 ]
 
-const groupOrder: TechGroup[] = [
-  'Languages',
-  'Data & Analytics',
-  'AI & LLM',
-  'Cloud & Infra',
-  'Automation & Messaging',
-  'Frontend',
-  'Tooling',
+/**
+ * Short tool list for the About page and the home marquee. Related tools are combined into one item.
+ * `tools` are tech names from the projects above; they set the project count and the filter link.
+ */
+export const toolkit: ToolkitGroup[] = [
+  {
+    group: 'BI & reporting',
+    icon: 'bar-chart',
+    items: [
+      { label: 'Power BI & DAX', tools: ['Power BI', 'DAX', 'GeoJSON / TopoJSON', 'Mapshaper'] },
+      { label: 'Power Apps', tools: ['Power Apps'] },
+      { label: 'Excel & survey analysis', tools: ['Excel', 'Survey Analytics', 'OpenPyXL'] },
+    ],
+  },
+  {
+    group: 'Data',
+    icon: 'database',
+    items: [
+      { label: 'Python & pandas', tools: ['Python', 'pandas', 'PyArrow', 'Apache Parquet', 'RapidFuzz', 'PyMuPDF'] },
+      { label: 'SQL & BigQuery', tools: ['SQL', 'BigQuery', 'Google Cloud'] },
+      { label: 'Web scraping & OCR', tools: ['Selenium', 'Tesseract OCR', 'XML / SDMX'] },
+    ],
+  },
+  {
+    group: 'Automation',
+    icon: 'workflow',
+    items: [
+      { label: 'APIs & webhooks', tools: ['REST APIs', 'FastAPI', 'Flask', 'QuickBooks Online API', 'Wallet Platform API', 'LiveChat API'] },
+      { label: 'Lark chat bots', tools: ['Lark API'] },
+      { label: 'Google Apps Script', tools: ['Google Apps Script', 'Google Sheets API', 'clasp', 'JavaScript'] },
+      { label: 'Scheduled jobs', tools: ['Papermill', 'APScheduler', 'PowerShell'] },
+    ],
+  },
+  {
+    group: 'Cloud & AI',
+    icon: 'sparkles',
+    items: [
+      { label: 'AWS EC2 & Docker', tools: ['AWS EC2', 'Docker', 'systemd', 'Gunicorn'] },
+      { label: 'OpenAI API', tools: ['OpenAI API'] },
+    ],
+  },
+  {
+    group: 'Apps & testing',
+    icon: 'layout',
+    items: [
+      { label: 'React & TypeScript', tools: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'PWA', 'Zustand', 'HTML / CSS'] },
+      { label: 'Tauri & Rust', tools: ['Tauri', 'Rust'] },
+      { label: 'SQLite & IndexedDB', tools: ['SQLite', 'Dexie / IndexedDB'] },
+      { label: 'Automated testing', tools: ['pytest', 'Vitest', 'Playwright'] },
+    ],
+  },
 ]
-
-export const techGroups: TechGroupEntry[] = groupOrder
-  .map((group) => {
-    const items = new Map<string, string[]>()
-    for (const project of projects) {
-      for (const tech of project.tech.filter((item) => item.group === group)) {
-        items.set(tech.name, [...(items.get(tech.name) ?? []), project.slug])
-      }
-    }
-    return {
-      group,
-      items: [...items.entries()]
-        .map(([name, projectSlugs]) => ({ name, projectSlugs }))
-        .sort((a, b) => b.projectSlugs.length - a.projectSlugs.length || a.name.localeCompare(b.name)),
-    }
-  })
-  .filter((entry) => entry.items.length > 0)
 
 export const strengths: Strength[] = [
   {

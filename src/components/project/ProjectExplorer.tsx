@@ -2,7 +2,7 @@ import { useDeferredValue, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { categories, projects, techCounts } from '@/data'
+import { categories, findToolkitItem, projects, techCounts, usesToolkitItem } from '@/data'
 import { cn } from '@/lib/utils'
 import { ProjectCard } from './ProjectCard'
 import { TechBadge } from './TechBadge'
@@ -15,6 +15,8 @@ export function ProjectExplorer() {
   const q = params.get('q') ?? ''
   const cat = params.get('cat') ?? 'all'
   const tech = useMemo(() => (params.get('tech') ?? '').split(',').filter(Boolean), [params])
+  // Set by links from the About page tool list: matches any tool in that combined item.
+  const toolItem = findToolkitItem(params.get('tools') ?? '')
   const [showAllTech, setShowAllTech] = useState(false)
   const dq = useDeferredValue(q.trim().toLowerCase())
 
@@ -38,13 +40,14 @@ export function ProjectExplorer() {
     return projects.filter((p) => {
       if (cat !== 'all' && p.category !== cat) return false
       if (tech.length && !tech.every((t) => p.tech.some((x) => x.name === t))) return false
+      if (toolItem && !usesToolkitItem(p, toolItem)) return false
       if (dq) {
         const hay = [p.name, p.tagline, p.summary, p.domain, ...p.tech.map((t) => t.name)].join(' ').toLowerCase()
         if (!hay.includes(dq)) return false
       }
       return true
     })
-  }, [cat, tech, dq])
+  }, [cat, tech, dq, toolItem])
 
   const groups = [
     { id: 'work', label: 'Work projects', note: 'Data, BI and automation. Some company details are hidden.', items: results.filter((p) => !p.personal) },
@@ -53,7 +56,7 @@ export function ProjectExplorer() {
   const showGroupHeadings = groups.length > 1
 
   const visibleTech = showAllTech ? techCounts : techCounts.slice(0, TOP_TECH)
-  const hasFilters = q !== '' || cat !== 'all' || tech.length > 0
+  const hasFilters = q !== '' || cat !== 'all' || tech.length > 0 || Boolean(toolItem)
 
   return (
     <div>
@@ -113,10 +116,22 @@ export function ProjectExplorer() {
         )}
       </div>
 
-      <p className="mt-6 font-mono text-xs text-muted" aria-live="polite">
-        {results.length} {results.length === 1 ? 'project' : 'projects'}
-        {hasFilters ? ' match' : ''}
-      </p>
+      <div className="mt-6 flex flex-wrap items-center gap-2">
+        <p className="font-mono text-xs text-muted" aria-live="polite">
+          {results.length} {results.length === 1 ? 'project' : 'projects'}
+          {hasFilters ? ' match' : ''}
+        </p>
+        {toolItem && (
+          <button
+            type="button"
+            onClick={() => update({ tools: null })}
+            className="chip border-accent bg-accent-soft text-fg"
+            aria-label={`Remove filter: ${toolItem.label}`}
+          >
+            {toolItem.label} <X size={11} />
+          </button>
+        )}
+      </div>
 
       {results.length === 0 ? (
         <div className="card mt-4 flex flex-col items-center gap-3 px-6 py-16 text-center">

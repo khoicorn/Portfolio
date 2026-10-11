@@ -1,8 +1,8 @@
-import { categories, projects as raw, strengths, techGroups } from './projects'
+import { categories, projects as raw, strengths, toolkit } from './projects'
 import { profile } from './profile'
-import type { Category, Project } from './types'
+import type { Category, Project, ToolkitItem } from './types'
 
-export { categories, strengths, techGroups, profile }
+export { categories, strengths, toolkit, profile }
 
 /** One global order. Work projects first, personal projects last. */
 export const projects: Project[] = [...raw].sort((a, b) => {
@@ -39,6 +39,16 @@ export const techCounts: TechCount[] = (() => {
   for (const p of projects) for (const t of p.tech) m.set(t.name, (m.get(t.name) ?? 0) + 1)
   return [...m.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
 })()
+
+/** True when a project uses any tool in a toolkit item. */
+export function usesToolkitItem(p: Project, item: ToolkitItem): boolean {
+  return p.tech.some((t) => item.tools.includes(t.name))
+}
+
+/** Finds a toolkit item by its label, as used in the ?tools= link. */
+export function findToolkitItem(label: string): ToolkitItem | undefined {
+  return toolkit.flatMap((g) => g.items).find((i) => i.label === label)
+}
 
 export function projectsByTech(name: string): Project[] {
   return projects.filter((p) => p.tech.some((t) => t.name === name))

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Mail, MapPin } from 'lucide-react'
-import { categories, profile, projects, techGroups } from '@/data'
+import { categories, profile, projects } from '@/data'
 import { useTitle } from '@/lib/useTitle'
 import { SectionHeading } from '@/components/layout/SectionHeading'
 import { Reveal } from '@/components/layout/Reveal'
 import { Credentials, Experience } from '@/components/home/Career'
-import { TechGallery } from '@/components/home/TechGallery'
+import { Toolkit } from '@/components/home/Toolkit'
 import { Contact } from '@/components/home/Contact'
 import { GitHubIcon } from '@/components/layout/Icons'
 import { useContact } from '@/components/layout/ContactDialog'
@@ -86,10 +86,10 @@ export default function About() {
 
       <section id="stack" className="mt-16 scroll-mt-24" aria-labelledby="stack-h">
         <Reveal>
-          <SectionHeading id="stack-h" eyebrow="Tech stack" title="Tools I use" description="Grouped by type. The number shows how many projects use each tool. Click one to see those projects." />
+          <SectionHeading id="stack-h" eyebrow="Tech stack" title="Tools I use" description="Click a tool to see the projects that use it." />
         </Reveal>
         <div className="mt-8">
-          <TechGallery groups={techGroups} />
+          <Toolkit />
         </div>
       </section>
 

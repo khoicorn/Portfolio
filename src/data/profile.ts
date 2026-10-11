@@ -20,7 +20,7 @@ export const profile: Profile = {
   credentials: [
     { title: 'Bachelor of Commerce', org: 'University of Economics Ho Chi Minh City (UEH)', period: '2017 – 2020', kind: 'degree' },
     { title: 'Certificate in Machine Learning', org: 'University of Science, VNU-HCM', period: '2020 – 2021', kind: 'certificate' },
-    { title: 'English', org: 'IELTS 8.0', kind: 'language' },
+    { title: 'English', org: 'IELTS 7.5', kind: 'language' },
     { title: 'Chinese', org: 'HSK 5', kind: 'language' },
     { title: 'Vietnamese', org: 'Native', kind: 'language' },
   ],
