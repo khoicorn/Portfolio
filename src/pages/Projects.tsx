@@ -4,14 +4,14 @@ import { ProjectExplorer } from '@/components/project/ProjectExplorer'
 import { projects } from '@/data'
 
 export default function Projects() {
-  useTitle('Projects', 'Explore senior data analytics, dashboards, data engineering, automation and AI projects by Khoi Ngo.')
+  useTitle('Projects', 'Data analytics, Power BI, Power Apps, automation and AI projects by Khoi Ngo.')
   return (
     <div className="container-x py-12 sm:py-16">
       <SectionHeading
         as="h1"
         eyebrow="Project explorer"
         title={`${projects.length} projects, searchable`}
-        description="Filter by category or technology, or search for a problem. Company projects are shown as sanitized case studies."
+        description="Search, or filter by category and tool. Some company details are hidden to protect client data."
       />
       <div className="mt-8">
         <ProjectExplorer />

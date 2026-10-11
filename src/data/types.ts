@@ -40,6 +40,8 @@ export interface ProjectImage {
   src: string
   alt: string
   caption?: string
+  /** True when the picture is a recreation with sample data, not a real screenshot. */
+  recreated?: boolean
 }
 
 export interface ProjectLinks {
@@ -117,6 +119,21 @@ export interface TechGroupEntry {
   items: { name: string; projectSlugs: string[] }[]
 }
 
+export interface Job {
+  title: string
+  company: string
+  /** Short extra line, e.g. "Contract via Beyondsoft". */
+  note?: string
+  period: string
+}
+
+export interface Credential {
+  title: string
+  org: string
+  period?: string
+  kind: 'degree' | 'certificate' | 'language'
+}
+
 export interface Profile {
   name: string
   fullName: string
@@ -129,4 +146,6 @@ export interface Profile {
   github: string
   githubUser: string
   bio: string[]
+  experience: Job[]
+  credentials: Credential[]
 }

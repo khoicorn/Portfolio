@@ -2,6 +2,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Lets the conic border below animate its start angle. */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
   --bg: #f8fafc;
   --bg-2: #f1f5f9;
@@ -185,6 +192,12 @@
     animation: pulse-ring 2s ease-out infinite;
   }
 
+  /* Slowly rotating gradient edge. Put a .card-like child inside with 1px gap. */
+  .glow-border {
+    background: conic-gradient(from var(--angle), var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+    animation: spin-angle 7s linear infinite;
+  }
+
   .eq-bar {
     transform-box: fill-box;
     transform-origin: bottom;
@@ -193,6 +206,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .eq-bar,
+    .glow-border,
     .aurora,
     .text-gradient,
     .marquee-track,
@@ -232,6 +246,11 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
   }
 }
 @keyframes eq {

@@ -8,11 +8,11 @@ import { useContact } from '@/components/layout/ContactDialog'
 import { CountUp, RotatingWords, TechMarquee } from './HeroBits'
 import { HeroPipeline } from './HeroPipeline'
 
-const BUILDS = ['Power BI dashboards', 'data pipelines', 'chat bots on AWS', 'API integrations', 'desktop apps']
+const BUILDS = ['Power BI dashboards', 'Power Apps portals', 'data pipelines', 'chat bots on AWS', 'API integrations']
 
 const stats = [
   { value: projects.length, label: 'projects' },
-  { value: projects.filter((p) => p.confidential).length, label: 'company case studies' },
+  { value: projects.filter((p) => !p.personal).length, label: 'work projects' },
   { value: projects.filter((p) => p.hosting).length, label: 'services on AWS EC2' },
   { value: techCounts.length, label: 'tools used' },
 ]
@@ -57,6 +57,18 @@ export function Hero() {
             <a href={profile.github} target="_blank" rel="noreferrer" className="btn-ghost h-11 w-11 px-0" aria-label="GitHub profile">
               <GitHubIcon className="text-lg" />
             </a>
+          </motion.div>
+
+          <motion.div {...rise(0.3)} className="mt-8 border-t border-line pt-5">
+            <p className="label-mono">Experience</p>
+            <ul className="mt-2.5 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm">
+              {profile.experience.map((job, i) => (
+                <li key={job.company} className="inline-flex items-center gap-2.5">
+                  <span className="font-semibold text-fg-2">{job.company}</span>
+                  {i < profile.experience.length - 1 && <span className="h-1 w-1 rounded-full bg-line-2" aria-hidden="true" />}
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
 

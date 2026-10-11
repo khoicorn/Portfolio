@@ -47,7 +47,7 @@ export function ProjectExplorer() {
   }, [cat, tech, dq])
 
   const groups = [
-    { id: 'work', label: 'Work projects', note: 'Data, BI and automation. Company projects are sanitized.', items: results.filter((p) => !p.personal) },
+    { id: 'work', label: 'Work projects', note: 'Data, BI and automation. Some company details are hidden.', items: results.filter((p) => !p.personal) },
     { id: 'personal', label: 'Personal projects', note: 'Side projects I designed and built', items: results.filter((p) => p.personal) },
   ].filter((group) => group.items.length > 0)
   const showGroupHeadings = groups.length > 1

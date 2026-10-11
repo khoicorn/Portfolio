@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Mail, MapPin } from 'lucide-react'
-import { categories, profile, projects, strengths, techGroups } from '@/data'
+import { categories, profile, projects, techGroups } from '@/data'
 import { useTitle } from '@/lib/useTitle'
 import { SectionHeading } from '@/components/layout/SectionHeading'
 import { Reveal } from '@/components/layout/Reveal'
-import { Strengths } from '@/components/home/Strengths'
+import { Credentials, Experience } from '@/components/home/Career'
 import { TechGallery } from '@/components/home/TechGallery'
 import { Contact } from '@/components/home/Contact'
 import { GitHubIcon } from '@/components/layout/Icons'
@@ -12,7 +12,7 @@ import { useContact } from '@/components/layout/ContactDialog'
 
 export default function About() {
   const openContact = useContact()
-  useTitle('About', 'Khoi Ngo: Senior Data Analyst working across Power BI, SQL, Python, automation, APIs and AI applications.')
+  useTitle('About', 'Khoi Ngo: data analyst working with Power BI, Power Apps, SQL, Python, automation and AI tools.')
   const byCategory = categories.map((c) => ({ c, n: projects.filter((p) => p.category === c.id).length }))
 
   return (
@@ -66,42 +66,31 @@ export default function About() {
         </aside>
       </div>
 
-      <section className="mt-16" aria-labelledby="strengths-h">
+      <section className="mt-16" aria-labelledby="career-h">
         <Reveal>
-          <SectionHeading eyebrow="Strengths" title="What the projects show" description="Each statement below is backed by named projects. No percentages, no claims without code behind them." />
+          <SectionHeading id="career-h" eyebrow="Career" title="Where I have worked" />
+        </Reveal>
+        <div className="mt-10">
+          <Experience />
+        </div>
+      </section>
+
+      <section className="mt-16" aria-labelledby="edu-h">
+        <Reveal>
+          <SectionHeading id="edu-h" eyebrow="Education" title="Education & languages" />
         </Reveal>
         <div className="mt-8">
-          <Strengths items={strengths} />
+          <Credentials />
         </div>
       </section>
 
       <section id="stack" className="mt-16 scroll-mt-24" aria-labelledby="stack-h">
         <Reveal>
-          <SectionHeading eyebrow="Tech stack" title="Technology gallery" description="Grouped by role. The number is how many projects use it. Click to filter the explorer." />
+          <SectionHeading id="stack-h" eyebrow="Tech stack" title="Tools I use" description="Grouped by type. The number shows how many projects use each tool. Click one to see those projects." />
         </Reveal>
         <div className="mt-8">
           <TechGallery groups={techGroups} />
         </div>
-      </section>
-
-      <section className="mt-16" aria-labelledby="timeline-h">
-        <Reveal>
-          <SectionHeading eyebrow="Timeline" title="Projects by period" />
-        </Reveal>
-        <ol className="mt-8 space-y-0 border-l border-line">
-          {[...projects]
-            .sort((a, b) => (a.dateRange < b.dateRange ? 1 : -1))
-            .map((p) => (
-              <li key={p.slug} className="relative pl-6 pb-6">
-                <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-bg bg-accent" aria-hidden="true" />
-                <p className="font-mono text-xs text-muted">{p.dateRange}</p>
-                <Link to={`/projects/${p.slug}`} className="mt-0.5 block font-medium hover:text-accent">
-                  {p.name}
-                </Link>
-                <p className="text-sm text-muted">{p.tagline}</p>
-              </li>
-            ))}
-        </ol>
       </section>
 
       <section className="mt-16">

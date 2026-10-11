@@ -25,6 +25,109 @@ export const categories: Category[] = [
 
 export const projects: Project[] = [
   {
+    slug: 'market-intelligence-hub',
+    name: 'Market Intelligence Hub',
+    tagline: 'A Power Apps portal that puts 12 Power BI reports on the market, the economy and surveys in one place.',
+    summary:
+      'A Power Apps home page for a market intelligence team. Every Power BI report has its own card, grouped by topic, with the data period and how often it updates. One click opens the full report.',
+    category: 'data-analytics',
+    featured: true,
+    order: 1,
+    domain: 'Higher-education market intelligence',
+    problem:
+      'The team had 12 reports on the market, the economy and student surveys. People needed one place to find the right report and see how current its data is.',
+    solution:
+      'A Power Apps portal with one card per report, grouped into Market & Economics and Survey Tracking. Each card shows the data period and update cycle, and opens the Power BI report.',
+    architecture: [
+      { label: 'Build', detail: '12 Power BI reports on market, economic and survey data.' },
+      { label: 'Automate', detail: 'Python collects website data every week for 2 of the reports.' },
+      { label: 'Group', detail: 'Reports are sorted into Market & Economics and Survey Tracking.' },
+      { label: 'Label', detail: 'Each card shows the data period and update cycle: weekly, monthly, quarterly, per semester or yearly.' },
+      { label: 'Open', detail: 'One click opens the full Power BI report.' },
+    ],
+    tech: [
+      { name: 'Power Apps', group: 'Frontend' },
+      { name: 'Power BI', group: 'Data & Analytics' },
+      { name: 'Python', group: 'Languages' },
+    ],
+    stack: [
+      { layer: 'Portal', tools: ['Power Apps'], use: 'One home page with a card for every report.' },
+      { layer: 'Reports', tools: ['Power BI'], use: '12 dashboards on the market, the economy and surveys.' },
+      { layer: 'Data', tools: ['Python'], use: 'Weekly website data collection for 2 dashboards.' },
+    ],
+    skills: ['Power Apps', 'Power BI', 'Report portfolio design', 'Reporting automation', 'Working with business teams'],
+    challenges: [
+      'Make 12 reports easy to find for people who are not data experts.',
+      'Show how fresh each report is before anyone opens it.',
+      'Keep weekly, monthly and yearly update cycles on track.',
+    ],
+    results: [
+      '12 Power BI reports in one portal, 2 of them with weekly automated data collection.',
+      'Manual reporting work cut by 80%.',
+    ],
+    images: [
+      { src: 'images/mi-hub/hub-home.png', alt: 'Market Intelligence Hub home page in Power Apps with report cards grouped into Market & Economics and Survey Tracking', caption: 'Hub home page: one card per report, with its data period and update cycle.' },
+    ],
+    links: {},
+    dateRange: '2023–2025',
+    size: '12 reports · 2 groups',
+    confidential: false,
+    aiAssisted: false,
+    glyph: 'app',
+  },
+  {
+    slug: 'brand-health-tracking',
+    name: 'Brand Health Tracking Dashboard',
+    tagline: 'A Power BI survey dashboard that compares brand awareness and preference across universities.',
+    summary:
+      'A yearly brand survey turned into a Power BI dashboard. It shows a 4-stage brand funnel for each university, with benchmarks against the total market and the top 10 competitors, and filters for student type, university tier, discipline, city and year.',
+    category: 'data-analytics',
+    featured: true,
+    order: 3,
+    domain: 'Higher-education brand research',
+    problem:
+      'A yearly brand survey produced a lot of numbers. The team needed to compare its brand with competitors by student type, city and year without building new charts each time.',
+    solution:
+      'A Power BI dashboard with a market view and a university deep-dive, 5 topic pages and a brand funnel with benchmarks for the total market and the top 10 competitors.',
+    architecture: [
+      { label: 'Survey', detail: 'Yearly survey results are cleaned into tables for each question group.' },
+      { label: 'Measure', detail: 'DAX measures turn answers into a 4-stage funnel: awareness, consideration, 1st choice, preferred.' },
+      { label: 'Compare', detail: 'Each university is set against the total market and the top 10 competitors.' },
+      { label: 'Explore', detail: 'Filters for student type, university tier, discipline, city and year.' },
+      { label: 'Read', detail: '5 topic pages: awareness, funnel, imagery, functional value and emotional value.' },
+    ],
+    tech: [
+      { name: 'Power BI', group: 'Data & Analytics' },
+      { name: 'DAX', group: 'Data & Analytics' },
+      { name: 'Excel', group: 'Data & Analytics' },
+      { name: 'Survey Analytics', group: 'Data & Analytics' },
+    ],
+    stack: [
+      { layer: 'Data', tools: ['Excel', 'Survey Analytics'], use: 'Yearly survey results in clean tables.' },
+      { layer: 'Measures', tools: ['DAX'], use: 'Funnel percentages and the conversion rate between stages.' },
+      { layer: 'Report', tools: ['Power BI'], use: 'Market view, university deep-dive and 5 topic pages.' },
+    ],
+    skills: ['Survey analytics', 'Brand funnel analysis', 'DAX measures', 'Competitor benchmarking', 'Dashboard design'],
+    challenges: [
+      'Fit a 4-stage funnel and conversion rates for many universities on one page.',
+      'Keep results comparable across cities, years and student types.',
+      'Show the sample size so readers do not over-read small groups.',
+    ],
+    results: [
+      'Yearly brand tracking since 2023, with a market view and a university deep-dive.',
+      'Funnel benchmarks against the total market and the top 10 competitors.',
+    ],
+    images: [
+      { src: 'images/brand-health/brand-funnel.png', alt: 'Brand Health Tracking Power BI page showing the brand funnel for eight universities next to market and competitor benchmarks', caption: 'Brand funnel page: each university next to the market and top 10 competitor benchmarks.' },
+    ],
+    links: {},
+    dateRange: '2023–2025',
+    size: '5 topic pages · yearly survey',
+    confidential: false,
+    aiAssisted: false,
+    glyph: 'chart',
+  },
+  {
     slug: 'vietnam-macro-intelligence',
     name: 'Vietnam Macroeconomic Intelligence Platform',
     tagline: 'Python pipelines that collect public economic data every day and feed an 11-page Power BI dashboard.',
@@ -32,7 +135,7 @@ export const projects: Project[] = [
       'A macroeconomic analytics platform for GDP, inflation, foreign investment, trade, business, workforce and consumer confidence. Python notebooks collect and clean releases from Vietnamese and international sources, Papermill runs the daily refresh, and Power BI shows everything in one dashboard.',
     category: 'automation-data',
     featured: true,
-    order: 1,
+    order: 2,
     domain: 'Economic & market intelligence',
     problem:
       'Vietnam economic data sits across many agencies, file types and release dates. Analysts rebuilt each source by hand before they could compare indicators over time.',
@@ -81,12 +184,12 @@ export const projects: Project[] = [
       'Daily refresh for GSO, IMF and World Bank sources, with a last-update log.',
     ],
     images: [
-      { src: 'images/case-studies/macro-dashboard.svg', alt: 'Recreated macroeconomic dashboard using sample data', caption: 'Recreated with sample values. The client dashboard and data are not published.' },
+      { src: 'images/macro/gdp-cpi.png', alt: 'Vietnam Economics Power BI report, GDP-CPI page with CPI growth, an IMF inflation table and a map of Southeast Asia', caption: 'GDP-CPI page: CPI growth, IMF forecasts by country and the top price-rise industries. Public data from GSO and IMF.' },
     ],
     links: {},
     dateRange: '2023–2024',
     size: '11 report pages · daily refresh',
-    confidential: true,
+    confidential: false,
     aiAssisted: false,
     glyph: 'chart',
   },
@@ -98,7 +201,7 @@ export const projects: Project[] = [
       'A healthcare market-intelligence workflow that turns inconsistent hospital and doctor records into clean, matched data. It combines rule-based cleaning, fuzzy matching and AI-assisted review with a Power BI model covering providers, departments, geography and year-over-year comparisons.',
     category: 'data-analytics',
     featured: true,
-    order: 2,
+    order: 5,
     domain: 'Healthcare market intelligence',
     problem:
       'Hospital and doctor names came with spelling variants, Vietnamese accents, old and new province names and duplicate specialties. Simple joins failed and coverage numbers were wrong.',
@@ -136,7 +239,7 @@ export const projects: Project[] = [
       'Unclear matches go to a person for review instead of being forced into the data.',
     ],
     images: [
-      { src: 'images/case-studies/healthcare-dashboard.svg', alt: 'Recreated healthcare dashboard with a district map of Vietnam and five highlighted provinces, using sample data', caption: 'Recreated with fictional values. No healthcare records are shown.' },
+      { src: 'images/case-studies/healthcare-dashboard.svg', alt: 'Recreated healthcare dashboard with a district map of Vietnam and five highlighted provinces, using sample data', caption: 'Recreated with fictional values. No healthcare records are shown.', recreated: true },
     ],
     links: {},
     dateRange: '2025',
@@ -153,7 +256,7 @@ export const projects: Project[] = [
       'A Python and FastAPI service for a finance payments team. It checks each payment request with 15 rules and an AI second opinion, creates the payout through a crypto wallet platform API, keeps one live Lark card per payment, sends reminders when a step is slow, alerts on wallet movements and low balances, and sends daily and weekly reports checked against wallet history. Runs in Docker on AWS EC2.',
     category: 'automation-data',
     featured: true,
-    order: 3,
+    order: 4,
     domain: 'Finance operations · crypto payments',
     problem:
       'Payment requests came through a free-text Lark form, and the wallet platform sends no update while a payout waits for approval or signature. Transfers made by hand in the wallet app never showed up in Lark.',
@@ -200,7 +303,7 @@ export const projects: Project[] = [
       '1,500+ automated tests cover payouts, duplicates, reminders, alerts and reconciliation.',
     ],
     images: [
-      { src: 'images/payout-alert-bot/payout-card.svg', alt: 'Sample Lark payout card with a status tracker, flagged checks and a wallet alert feed', caption: 'Recreated with fictional names and values. No real payments are shown.' },
+      { src: 'images/payout-alert-bot/payout-card.svg', alt: 'Sample Lark payout card with a status tracker, flagged checks and a wallet alert feed', caption: 'Recreated with fictional names and values. No real payments are shown.', recreated: true },
     ],
     links: {},
     dateRange: '2026 · active',
@@ -217,8 +320,8 @@ export const projects: Project[] = [
     summary:
       'An analytics workflow for a telecom camera product. Python combines monthly Parquet files on devices, network use, browsing, contracts and telesales; Power BI gives analysts a deep-dive report and managers a short weekly view.',
     category: 'data-analytics',
-    featured: true,
-    order: 4,
+    featured: false,
+    order: 7,
     domain: 'Telecom product analytics',
     problem:
       'Product data sat in large monthly files across devices, network logs, browsing and sales. The team needed to see who uses the camera, who might buy it, and a simple weekly view for managers.',
@@ -254,7 +357,7 @@ export const projects: Project[] = [
       'Device, browsing, network, profile and telesales data linked by contract.',
     ],
     images: [
-      { src: 'images/case-studies/telecom-dashboard.svg', alt: 'Recreated telecom camera dashboard using sample data', caption: 'Recreated with fictional groups and sample values. No subscriber data is shown.' },
+      { src: 'images/case-studies/telecom-dashboard.svg', alt: 'Recreated telecom camera dashboard using sample data', caption: 'Recreated with fictional groups and sample values. No subscriber data is shown.', recreated: true },
     ],
     links: {},
     dateRange: '2022',
@@ -270,8 +373,8 @@ export const projects: Project[] = [
     summary:
       'A market-research dashboard that brings interview and mystery-shopping surveys into one report. Two survey waves use the same 10-page layout, so pricing, engagement, display, trade programs and fieldwork progress can be compared directly.',
     category: 'data-analytics',
-    featured: true,
-    order: 5,
+    featured: false,
+    order: 8,
     domain: 'Retail & market research',
     problem:
       'Survey results spread across many sections and measures. Field teams also needed to track progress, and outlet-level detail had to stay apart from management summaries.',
@@ -305,7 +408,7 @@ export const projects: Project[] = [
       'Each wave covers findings, fieldwork progress and outlet-level review.',
     ],
     images: [
-      { src: 'images/case-studies/retail-dashboard.svg', alt: 'Recreated retail fieldwork dashboard using sample data', caption: 'Recreated with fictional categories and sample values. No respondent or client data is shown.' },
+      { src: 'images/case-studies/retail-dashboard.svg', alt: 'Recreated retail fieldwork dashboard using sample data', caption: 'Recreated with fictional categories and sample values. No respondent or client data is shown.', recreated: true },
     ],
     links: {},
     dateRange: '2022',
@@ -321,7 +424,7 @@ export const projects: Project[] = [
     summary:
       'A Python accounting pipeline that turns monthly client sheets into QuickBooks journals, expenses and transfers. Staff start each stage from a status cell in Google Sheets; the service writes progress and errors back to the same sheet. Hosted on AWS EC2.',
     category: 'automation-data',
-    featured: true,
+    featured: false,
     order: 6,
     domain: 'Finance operations',
     problem:
@@ -384,7 +487,7 @@ export const projects: Project[] = [
       'A repeatable job that measures the referral funnel, from people who refer to new users, paying users, qualified users and revenue. SQL does the counting in BigQuery; Python builds a formatted Excel tracker with definitions, comparisons and short notes.',
     category: 'data-analytics',
     featured: false,
-    order: 7,
+    order: 9,
     domain: 'Growth analytics',
     problem:
       'Referral performance was answered with one-off data pulls. Stakeholders needed one metric definition, comparable segments and a clear view of query cost.',
@@ -436,7 +539,7 @@ export const projects: Project[] = [
       'A Python and Selenium service that lets analysts research a website from a Lark command. It searches the public Facebook Ads Library, finds related advertisers, builds an Excel report and zips the ad media. Chats can also save websites for daily runs. Hosted on AWS EC2.',
     category: 'automation-data',
     featured: false,
-    order: 8,
+    order: 10,
     domain: 'Marketing intelligence',
     problem:
       'Competitor ad research meant browsing a fast-changing site and copying ad IDs, dates, text, links and media into sheets by hand.',
@@ -491,7 +594,7 @@ export const projects: Project[] = [
       'A Google Apps Script system that combines service performance, team structure, attendance and quality-review data into one scorecard workbook. It scores KPIs from shared settings and rebuilds detailed and management views on a schedule.',
     category: 'data-analytics',
     featured: false,
-    order: 9,
+    order: 11,
     domain: 'Service operations',
     problem:
       'Reporting ran on many separate scripts and sheets with copied code and fragile links between sheets. One KPI change had to be repeated everywhere.',
@@ -542,7 +645,7 @@ export const projects: Project[] = [
       'A ready-to-use kit for Power BI shape maps of Vietnam. It includes cleaned boundaries, matching keys, a theme, DAX measures and a rebuild script. All health numbers are dummy data, so the kit shows the method without passing fake numbers off as real.',
     category: 'data-analytics',
     featured: false,
-    order: 10,
+    order: 12,
     domain: 'Map analytics in BI',
     problem:
       'Raw boundary files are too big for Power BI shape maps. Repeated district names and mismatched keys leave areas blank or put numbers on the wrong area.',
@@ -595,7 +698,7 @@ export const projects: Project[] = [
     category: 'web-apps',
     featured: false,
     personal: true,
-    order: 11,
+    order: 13,
     domain: 'Learning tools',
     problem:
       'Corrections from lessons were easy to collect but hard to review. Note apps saved the text but did not link the mistake, the better version and the next review date.',
@@ -661,7 +764,7 @@ export const projects: Project[] = [
     category: 'web-apps',
     featured: false,
     personal: true,
-    order: 12,
+    order: 14,
     domain: 'Personal productivity',
     problem:
       'Normal task apps make small daily work feel like admin, and heavily gamified apps distract. I wanted one fast desktop tool with separate work and personal spaces.',
@@ -722,7 +825,7 @@ export const projects: Project[] = [
     category: 'developer-tools',
     featured: false,
     personal: true,
-    order: 13,
+    order: 15,
     domain: 'Document conversion',
     problem:
       'Fixed-layout PDFs read badly on e-readers. Saving each page as an image loses search, highlights and navigation.',
@@ -801,7 +904,7 @@ export const strengths: Strength[] = [
     title: 'Business analytics & BI',
     evidence: 'I turn unclear questions into agreed metrics, easy-to-use Power BI reports and clear next steps.',
     icon: 'bar-chart',
-    projects: ['vietnam-macro-intelligence', 'healthcare-market-intelligence', 'retail-fieldwork-dashboard'],
+    projects: ['market-intelligence-hub', 'vietnam-macro-intelligence', 'brand-health-tracking'],
   },
   {
     title: 'Data engineering',
@@ -825,7 +928,7 @@ export const strengths: Strength[] = [
     title: 'Analytics product thinking',
     evidence: 'I design for the reader and how often they decide, from executive overview to analyst detail and weekly operations.',
     icon: 'layout',
-    projects: ['retail-fieldwork-dashboard', 'telecom-camera-analytics', 'referral-coefficient'],
+    projects: ['market-intelligence-hub', 'brand-health-tracking', 'telecom-camera-analytics'],
   },
   {
     title: 'Applied AI with controls',

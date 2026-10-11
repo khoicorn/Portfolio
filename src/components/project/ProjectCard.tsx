@@ -29,7 +29,7 @@ export function ProjectCard({ project, compact }: Props) {
               src={withBase(cover.src)}
               alt={cover.alt}
               loading="lazy"
-              className="block h-full w-full max-w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              className="block h-full w-full max-w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.02]"
             />
           ) : (
             <ProjectThumb
@@ -39,9 +39,9 @@ export function ProjectCard({ project, compact }: Props) {
               className="h-full w-full transition-transform duration-500 group-hover:scale-[1.03]"
             />
           )}
-          {project.confidential && cover && (
+          {cover?.recreated && (
             <span className="absolute bottom-3 right-3 rounded-md border border-white/15 bg-black/60 px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-white/80 backdrop-blur">
-              Visual recreated · sample data
+              Recreated · sample data
             </span>
           )}
         </div>

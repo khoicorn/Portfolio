@@ -1,12 +1,14 @@
-import type { ReactNode } from 'react'
+import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Check, ExternalLink, Layers, Lock, Server, Sparkles, User } from 'lucide-react'
 import { categoryHue, getCategory, getProject, neighbors } from '@/data'
 import { useTitle } from '@/lib/useTitle'
-import { withBase } from '@/lib/utils'
 import { ProjectThumb } from '@/components/project/ProjectThumb'
 import { FlowDiagram } from '@/components/project/FlowDiagram'
 import { Gallery } from '@/components/project/Gallery'
+import { Lightbox } from '@/components/project/Lightbox'
+import { SectionNav, type SectionLink } from '@/components/project/SectionNav'
+import { ShotFrame, Tilt } from '@/components/project/ShotFrame'
 import { StackTable } from '@/components/project/StackTable'
 import { TechBadge } from '@/components/project/TechBadge'
 import { GitHubIcon } from '@/components/layout/Icons'
@@ -22,7 +24,7 @@ function SummaryCard({ title, children }: { title: string; children: ReactNode }
 
 function Section({ id, label, title, note, children }: { id: string; label: string; title: string; note?: string; children: ReactNode }) {
   return (
-    <section aria-labelledby={id}>
+    <section id={id.replace(/-h$/, '')} aria-labelledby={id} className="scroll-mt-36">
       <p className="label-mono">{label}</p>
       <h2 id={id} className="mt-2 text-xl font-semibold tracking-tight">{title}</h2>
       {note && <p className="mt-1.5 text-sm text-muted">{note}</p>}
@@ -35,6 +37,20 @@ export default function ProjectDetail() {
   const { slug = '' } = useParams()
   const project = getProject(slug)
   useTitle(project?.name, project?.tagline)
+  const [zoom, setZoom] = useState<number | null>(null)
+  const count = project?.images.length ?? 0
+  const closeZoom = useCallback(() => setZoom(null), [])
+  const stepZoom = useCallback((d: number) => setZoom((i) => (i === null ? null : (i + d + count) % count)), [count])
+  const sections = useMemo<SectionLink[]>(() => {
+    if (!project) return []
+    return [
+      { id: 'overview', label: 'Overview' },
+      ...(project.images.length > 1 ? [{ id: 'screens', label: 'Screens' }] : []),
+      { id: 'stack', label: 'Tech stack' },
+      { id: 'flow', label: 'How it works' },
+      ...(project.challenges.length ? [{ id: 'challenges', label: 'Challenges' }] : []),
+    ]
+  }, [project])
   if (!project) return <Navigate to="/projects" replace />
 
   const category = getCategory(project.category)
@@ -79,45 +95,47 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          <dl className="mt-6 grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
-            <div>
-              <dt className="label-mono inline-flex items-center gap-1"><Calendar size={11} /> Timeline</dt>
-              <dd className="mt-1 font-medium">{project.dateRange}</dd>
-            </div>
-            <div>
-              <dt className="label-mono inline-flex items-center gap-1"><Layers size={11} /> Scope</dt>
-              <dd className="mt-1 font-medium">{project.size}</dd>
-            </div>
-            <div>
-              <dt className="label-mono inline-flex items-center gap-1"><BookOpen size={11} /> Domain</dt>
-              <dd className="mt-1 font-medium">{project.domain}</dd>
-            </div>
+          <dl className="mt-6 grid grid-cols-2 gap-2.5 text-sm sm:grid-cols-3">
+            {[
+              { icon: Calendar, label: 'Timeline', value: project.dateRange },
+              { icon: Layers, label: 'Scope', value: project.size },
+              { icon: BookOpen, label: 'Domain', value: project.domain },
+            ].map(({ icon: Icon, label, value }) => (
+              <div key={label} className="rounded-xl border border-line bg-surface/60 px-3.5 py-2.5 backdrop-blur last:col-span-2 sm:last:col-span-1">
+                <dt className="label-mono inline-flex items-center gap-1"><Icon size={11} /> {label}</dt>
+                <dd className="mt-1 font-medium leading-snug">{value}</dd>
+              </div>
+            ))}
           </dl>
         </div>
 
         <figure className="relative min-w-0">
           <div
-            className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] opacity-80 blur-2xl"
-            style={{ background: `radial-gradient(60% 60% at 50% 50%, hsl(${hue} 80% 55% / 0.28), transparent 72%)` }}
+            className="pointer-events-none absolute -inset-8 -z-10 rounded-[2rem] opacity-90 blur-3xl"
+            style={{ background: `radial-gradient(60% 60% at 50% 50%, hsl(${hue} 80% 55% / 0.32), transparent 72%)` }}
             aria-hidden="true"
           />
-          <div className="card overflow-hidden">
-          <div className="aspect-[16/10] bg-bg-2">
-            {cover ? (
-              <img src={withBase(cover.src)} alt={cover.alt} className="h-full w-full object-cover" />
-            ) : (
-              <ProjectThumb slug={project.slug} glyph={project.glyph} hue={hue} className="h-full w-full" />
-            )}
-          </div>
-          <figcaption className="border-t border-line px-4 py-2.5 font-mono text-[11px] leading-relaxed text-muted">
+          {cover ? (
+            <Tilt>
+              <ShotFrame image={cover} label={project.name} onZoom={() => setZoom(0)} />
+            </Tilt>
+          ) : (
+            <div className="card overflow-hidden">
+              <div className="aspect-[16/10] bg-bg-2">
+                <ProjectThumb slug={project.slug} glyph={project.glyph} hue={hue} className="h-full w-full" />
+              </div>
+            </div>
+          )}
+          <figcaption className="mt-3 px-1 text-xs leading-relaxed text-muted">
             {cover?.caption ?? 'Illustration only. No screenshots are published for this project.'}
           </figcaption>
-          </div>
         </figure>
       </header>
 
-      <div className="mt-10 space-y-12">
-        <div className="grid gap-4 md:grid-cols-3">
+      <div className="mt-10 space-y-10">
+        <SectionNav items={sections} />
+
+        <div id="overview" className="grid scroll-mt-36 gap-4 md:grid-cols-3">
           <SummaryCard title="The problem"><p>{project.problem}</p></SummaryCard>
           <SummaryCard title="What I built"><p>{project.solution}</p></SummaryCard>
           <SummaryCard title="Result">
@@ -180,6 +198,8 @@ export default function ProjectDetail() {
           </section>
         )}
       </div>
+
+      <Lightbox images={project.images} index={zoom} onClose={closeZoom} onStep={stepZoom} />
 
       <nav className="mt-14 grid gap-4 border-t border-line pt-8 sm:grid-cols-2" aria-label="Project pagination">
         {prev ? (
