@@ -95,7 +95,13 @@ export default function ProjectDetail() {
           </dl>
         </div>
 
-        <figure className="card min-w-0 overflow-hidden">
+        <figure className="relative min-w-0">
+          <div
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] opacity-80 blur-2xl"
+            style={{ background: `radial-gradient(60% 60% at 50% 50%, hsl(${hue} 80% 55% / 0.28), transparent 72%)` }}
+            aria-hidden="true"
+          />
+          <div className="card overflow-hidden">
           <div className="aspect-[16/10] bg-bg-2">
             {cover ? (
               <img src={withBase(cover.src)} alt={cover.alt} className="h-full w-full object-cover" />
@@ -106,6 +112,7 @@ export default function ProjectDetail() {
           <figcaption className="border-t border-line px-4 py-2.5 font-mono text-[11px] leading-relaxed text-muted">
             {cover?.caption ?? 'Illustration only. No screenshots are published for this project.'}
           </figcaption>
+          </div>
         </figure>
       </header>
 

@@ -8,8 +8,10 @@ import { Strengths } from '@/components/home/Strengths'
 import { TechGallery } from '@/components/home/TechGallery'
 import { Contact } from '@/components/home/Contact'
 import { GitHubIcon } from '@/components/layout/Icons'
+import { useContact } from '@/components/layout/ContactDialog'
 
 export default function About() {
+  const openContact = useContact()
   useTitle('About', 'Khoi Ngo: Senior Data Analyst working across Power BI, SQL, Python, automation, APIs and AI applications.')
   const byCategory = categories.map((c) => ({ c, n: projects.filter((p) => p.category === c.id).length }))
 
@@ -24,9 +26,9 @@ export default function About() {
             ))}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={`mailto:${profile.email}`} className="btn-primary">
+            <button type="button" onClick={openContact} className="btn-primary">
               <Mail size={15} /> Email me
-            </a>
+            </button>
             <a href={profile.github} target="_blank" rel="noreferrer" className="btn-ghost">
               <GitHubIcon /> GitHub
             </a>

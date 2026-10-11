@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, Lock, Server, Star, User } from 'lucide-react'
 import type { Project } from '@/data/types'
 import { categoryHue, getCategory } from '@/data'
-import { withBase } from '@/lib/utils'
+import { spot, withBase } from '@/lib/utils'
 import { ProjectThumb } from './ProjectThumb'
 import { GitHubIcon } from '@/components/layout/Icons'
 
@@ -21,7 +21,7 @@ export function ProjectCard({ project, compact }: Props) {
   const more = tools.length - shown.length
 
   return (
-    <article className="group card relative flex h-full min-w-0 flex-col overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:border-line-2">
+    <article onMouseMove={spot} className="group card spotlight relative flex h-full min-w-0 flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_48px_-24px_var(--glow)]">
       <Link to={`/projects/${project.slug}`} className="block min-w-0" aria-label={`${project.name} case study`}>
         <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-bg-2">
           {cover ? (

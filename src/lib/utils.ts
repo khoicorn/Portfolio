@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react'
+
 export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
@@ -29,4 +31,11 @@ export function repoFromUrl(url?: string): { owner: string; repo: string } | nul
 export function withBase(path: string): string {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   return `${base}/${path.replace(/^\//, '')}`
+}
+
+/** Feeds the pointer position to a .spotlight element's glow. */
+export function spot(e: MouseEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
 }
